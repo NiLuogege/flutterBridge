@@ -21,9 +21,7 @@ class FlutterBridge {
     return _instance;
   }
 
-  init(){
-
-  }
+  init() {}
 
   openLog(bool open) {
     L.toggle = open;
@@ -36,7 +34,8 @@ class FlutterBridge {
 
   var _methodMap = HashMap<String, MethodHandler>();
 
-  Future<T> callNative<T>(String methodName, {Map<String, Object> params}) async {
+  Future<T> callNative<T>(String methodName,
+      {Map<String, Object>? params}) async {
     return await _channel.invokeMethod(methodName, params);
   }
 
@@ -46,7 +45,7 @@ class FlutterBridge {
   }
 
   // 反注册方法
-  MethodHandler unregisterHandler(String methodName) {
+  MethodHandler? unregisterHandler(String methodName) {
     return _methodMap.remove(methodName);
   }
 
@@ -54,7 +53,7 @@ class FlutterBridge {
     L.log('method=${call.method} arguments=${call.arguments}');
     String methodName = call.method;
     Map<String, dynamic> params = Map<String, dynamic>.from(call.arguments);
-    MethodHandler methodHandler = _methodMap[methodName];
+    MethodHandler? methodHandler = _methodMap[methodName];
     if (methodHandler != null) {
       return methodHandler(params);
     } else {

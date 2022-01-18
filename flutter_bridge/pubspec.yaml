@@ -1,11 +1,11 @@
-name: flutter_bridge_new
+name: flutter_bridge
 description: A new Flutter project.
-version: 0.0.2
-homepage: https://github.com/NiLuogege/flutterBridge
+version: 0.0.3
+homepage: https://github.com/xyhuangjia/flutterBridge
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.1"
+  sdk: ">=2.12.0 <3.0.0"
+  # flutter: ">=2.8.0"
 
 dependencies:
   flutter:
