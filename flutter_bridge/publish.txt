@@ -1,5 +1,0 @@
-//dry-run 命令以检验是否所有内容都通过了分析
-D:\soft\flutter\flutter_2.0.3\flutter\bin\flutter pub publish --dry-run
-
-//正式发布
-D:\soft\flutter\flutter_2.0.3\flutter\bin\flutter pub publish --server=https://pub.dartlang.org
