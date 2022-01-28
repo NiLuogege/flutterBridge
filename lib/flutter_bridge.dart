@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 
 import 'l.dart';
 
-typedef MethodHandler = dynamic Function(Map<String, dynamic> params);
+typedef MethodHandler = dynamic Function(dynamic params);
 
 class FlutterBridge {
   static const String CHANNEL_NAME = "flutterBridge/core";
   MethodChannel _channel = new MethodChannel(CHANNEL_NAME);
+
+  HashMap<String, MethodHandler> _methodMap = HashMap<String, MethodHandler>();
 
   FlutterBridge._() {
     _channel.setMethodCallHandler(onMethodCall);
@@ -21,8 +23,6 @@ class FlutterBridge {
     return _instance;
   }
 
-  init() {}
-
   openLog(bool open) {
     L.toggle = open;
     callNative("toggleLog", params: {"toggle": open});
@@ -31,8 +31,6 @@ class FlutterBridge {
   MethodChannel getChannel() {
     return _channel;
   }
-
-  var _methodMap = HashMap<String, MethodHandler>();
 
   Future<T> callNative<T>(String methodName,
       {Map<String, Object>? params}) async {
@@ -52,7 +50,7 @@ class FlutterBridge {
   Future<dynamic> onMethodCall(MethodCall call) async {
     L.log('method=${call.method} arguments=${call.arguments}');
     String methodName = call.method;
-    Map<String, dynamic> params = Map<String, dynamic>.from(call.arguments);
+    dynamic  params = call.arguments;
     MethodHandler? methodHandler = _methodMap[methodName];
     if (methodHandler != null) {
       return methodHandler(params);
